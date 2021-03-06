@@ -24,4 +24,4 @@ down:
 ################################################################
 
 php-cli:
-	docker-compose run --rm --no-deps php-cli
+	docker-compose run --rm --no-deps php-cli bash
