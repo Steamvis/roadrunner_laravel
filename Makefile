@@ -19,6 +19,15 @@ up:
 down:
 	docker-compose down
 
+restart: down up
+
+watch-logs:
+	docker-compose up
+
+logs:
+	docker-compose logs
+
+
 ################################################################
 ################### CONTROLLING BACKEND ########################
 ################################################################

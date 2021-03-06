@@ -45,7 +45,6 @@ return [
         'translator',
         'url',
         'log',
-        'debugbar'
     ],
 
     /*
@@ -62,6 +61,7 @@ return [
     'listeners' => [
         Events\BeforeLoopStartedEvent::class => [
             Listeners\FixSymfonyFileValidationListener::class,
+            App\RoadrunnerListeners\DebugbarListener::class
         ],
 
         Events\BeforeLoopIterationEvent::class => [
