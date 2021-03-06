@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+#  nginx:
+#    build:
+#      context: docker/nginx
+#    volumes:
+#      - ./:/app
+#    ports:
+#      - "80:80"
+
+  app:
+    build:
+      context: docker/php-cli
+    command: "./rr -c ./.rr.yaml serve -d"
+    volumes:
+      - ./:/app
+    ports:
+      - "80:8080"
+
+#  redis:
+#    image: redis:alpine
+#    container_name: redis
+#    ports:
+#      - "6379:6379"
+#
+#  mysql:
+#    image: mysql:8.0
+#    volumes:
+#      - ./docker/databases/mysql:/var/lib/mysql
+#    environment:
+#      - MYSQL_ROOT_USER=root
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_DATABASE=laravel
+#      - MYSQL_USER=default
+#      - MYSQL_PASSWORD=default
+#    ports:
+#      - "3306:3306"

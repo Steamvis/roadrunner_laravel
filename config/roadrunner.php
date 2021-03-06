@@ -45,6 +45,7 @@ return [
         'translator',
         'url',
         'log',
+        'debugbar'
     ],
 
     /*
