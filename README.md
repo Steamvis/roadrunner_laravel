@@ -1,299 +1,62 @@
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+
 <p align="center">
-  <img src="https://hsto.org/webt/xl/pr/89/xlpr891cyv9ux3gm7dtzwjse_5a.png" alt="logo" width="420" />
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# [RoadRunner][roadrunner] ⇆ Laravel bridge
+## About Laravel
 
-[![Version][badge_packagist_version]][link_packagist]
-[![Version][badge_php_version]][link_packagist]
-[![Build Status][badge_build_status]][link_build_status]
-[![Coverage][badge_coverage]][link_coverage]
-[![Downloads count][badge_downloads_count]][link_packagist]
-[![License][badge_license]][link_license]
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-> Source code of this package was transferred from [avto-dev/roadrunner-laravel](https://github.com/avto-dev/roadrunner-laravel) package by its author. Release `v3.3.0` are same in both packages. Any future releases will be published in this repository _(previous package was abandoned)_.
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Easy way for connecting [RoadRunner][roadrunner] and [Laravel][laravel] applications.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Installation
+## Learning Laravel
 
-Require this package with composer using next command:
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-```shell script
-$ composer require spiral/roadrunner-laravel "^3.4"
-```
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-> Installed `composer` is required ([how to install composer][getcomposer]).
+## Laravel Sponsors
 
-> You need to fix the major version of package.
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-After that you can "publish" package configuration file (`./config/roadrunner.php`) using next command:
+### Premium Partners
 
-```shell script
-$ php ./artisan vendor:publish --provider='Spiral\RoadRunnerLaravel\ServiceProvider' --tag=config
-```
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/)**
+- **[OP.GG](https://op.gg)**
 
-And basic RoadRunner configuration file (`./.rr.yaml.dist`):
+## Contributing
 
-```shell script
-$ php ./artisan vendor:publish --provider='Spiral\RoadRunnerLaravel\ServiceProvider' --tag=rr-config
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-After that you can modify configuration files as you wish.
+## Code of Conduct
 
-**Important**: despite the fact that worker allows you to refresh application instance on each HTTP request _(if environment variable `APP_REFRESH` set to `true`)_, we strongly recommend to avoid this for performance reasons. Large applications can be hard to integrate with RoadRunner _(you must decide which of service providers must be reloaded on each request, avoid "static optimization" in some cases)_, but it's worth it.
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Usage
+## Security Vulnerabilities
 
-After package installation you can use provided "binary" file as RoadRunner worker: `./vendor/bin/rr-worker`. This worker allows you to interact with incoming requests and outcoming responses using [laravel events system][laravel_events]. Also events contains:
-
-Event classname              | Application object | HTTP server request | HTTP request | HTTP response | Exception
----------------------------- | :----------------: | :-----------------: | :----------: | :-----------: | :-------:
-`BeforeLoopStartedEvent`     |          ✔         |                     |              |               |
-`BeforeLoopIterationEvent`   |          ✔         |          ✔          |              |               |
-`BeforeRequestHandlingEvent` |          ✔         |                     |       ✔      |               |
-`AfterRequestHandlingEvent`  |          ✔         |                     |       ✔      |       ✔       |
-`AfterLoopIterationEvent`    |          ✔         |                     |       ✔      |       ✔       |
-`AfterLoopStoppedEvent`      |          ✔         |                     |              |               |
-`LoopErrorOccurredEvent`     |          ✔         |          ✔          |              |               |     ✔
-
-Simple `.rr.yaml` config example:
-
-```yaml
-env:
-  #APP_REFRESH: true
-
-http:
-  address: 0.0.0.0:8080
-  workers:
-    command: 'php ./vendor/bin/rr-worker' # for windows: `php vendor/spiral/roadrunner-laravel/bin/rr-worker`
-    pool:
-      numWorkers: 4
-      maxJobs: 64 # jobs limitation is important
-
-static:
-  dir: 'public'
-```
-
-Roadrunner server starting:
-
-```shell script
-$ rr -c ./.rr.yaml serve -d
-```
-
-### Listeners
-
-This package provides event listeners for resetings application state without full application reload _(like cookies, HTTP request, application instance, service-providers and other)_. Some of them already declared in configuration file, but you can declare own without any limitations.
-
-### Environment variables
-
-You can use the following environment variables:
-
-Variable name     | Description
------------------ | -----------
-`APP_FORCE_HTTPS` | _(declared in configuration file)_ Forces application HTTPS schema usage
-`APP_REFRESH`     | Refresh application instance on every request
-
-### Known issues
-
-#### Controller constructors
-
-You should avoid to use HTTP controller constructors _(created or resolved instances in constructor can be shared between different requests)_. Use dependencies resolving in controller **methods** instead.
-
-Bad:
-
-```php
-<?php
-
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
-
-class UserController extends Controller
-{
-    /**
-     * The user repository instance.
-     */
-    protected $users;
-
-    /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * @param UserRepository $users
-     * @param Request        $request
-     */
-    public function __construct(UserRepository $users, Request $request)
-    {
-        $this->users   = $users;
-        $this->request = $request;
-    }
-
-    /**
-     * @return Response
-     */
-    public function store(): Response
-    {
-        $user = $this->users->getById($this->request->id);
-
-        // ...
-    }
-}
-```
-
-Good:
-
-```php
-<?php
-
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
-
-class UserController extends Controller
-{
-    /**
-     * @param  Request        $request
-     * @param  UserRepository $users
-     *
-     * @return Response
-     */
-    public function store(Request $request, UserRepository $users): Response
-    {
-        $user = $users->getById($request->id);
-
-        // ...
-    }
-}
-```
-
-#### Middleware constructors
-
-You should never to use middleware constructor for `session`, `session.store`, `auth` or auth `Guard` instances resolving and **storing** in properties _(for example)_. Use method-injection or access them through `Request` instance.
-
-Bad:
-
-```php
-<?php
-
-use Illuminate\Http\Request;
-use Illuminate\Session\Store;
-
-class Middleware
-{
-    /**
-     * @var Store
-     */
-    protected $session;
-
-    /**
-     * @param Store $session
-     */
-    public function __construct(Store $session)
-    {
-        $this->session = $session;
-    }
-
-    /**
-     * Handle an incoming request.
-     *
-     * @param Request  $request
-     * @param \Closure $next
-     *
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next)
-    {
-        $name = $this->session->getName();
-
-        // ...
-
-        return $next($request);
-    }
-}
-```
-
-Good:
-
-```php
-<?php
-
-use Illuminate\Http\Request;
-
-class Middleware
-{
-    /**
-     * Handle an incoming request.
-     *
-     * @param Request  $request
-     * @param \Closure $next
-     *
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next)
-    {
-        $name = $request->session()->getName();
-        // $name = resolve('session')->getName();
-
-        // ...
-
-        return $next($request);
-    }
-}
-```
-
-### Testing
-
-For package testing we use `phpunit` framework and `docker-ce` + `docker-compose` as develop environment. So, just write into your terminal after repository cloning:
-
-```shell script
-$ make build
-$ make latest # or 'make lowest'
-$ make test
-```
-
-## Changes log
-
-[![Release date][badge_release_date]][link_releases]
-[![Commits since latest release][badge_commits_since_release]][link_commits]
-
-Changes log can be [found here][link_changes_log].
-
-## Support
-
-[![Issues][badge_issues]][link_issues]
-[![Issues][badge_pulls]][link_pulls]
-
-If you will find any package errors, please, [make an issue][link_create_issue] in current repository.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-MIT License (MIT). Please see [`LICENSE`](./LICENSE) for more information. Maintained by [tarampampam](https://github.com/tarampampam) and [Spiral Scout](https://spiralscout.com).
-
-[badge_packagist_version]:https://img.shields.io/packagist/v/spiral/roadrunner-laravel.svg?maxAge=180
-[badge_php_version]:https://img.shields.io/packagist/php-v/spiral/roadrunner-laravel.svg?longCache=true
-[badge_build_status]:https://img.shields.io/github/workflow/status/spiral/roadrunner-laravel/tests?maxAge=30
-[badge_coverage]:https://img.shields.io/codecov/c/github/spiral/roadrunner-laravel/master.svg?maxAge=180
-[badge_downloads_count]:https://img.shields.io/packagist/dt/spiral/roadrunner-laravel.svg?maxAge=180
-[badge_license]:https://img.shields.io/packagist/l/spiral/roadrunner-laravel.svg?maxAge=256
-[badge_release_date]:https://img.shields.io/github/release-date/spiral/roadrunner-laravel.svg?style=flat-square&maxAge=180
-[badge_commits_since_release]:https://img.shields.io/github/commits-since/spiral/roadrunner-laravel/latest.svg?style=flat-square&maxAge=180
-[badge_issues]:https://img.shields.io/github/issues/spiral/roadrunner-laravel.svg?style=flat-square&maxAge=180
-[badge_pulls]:https://img.shields.io/github/issues-pr/spiral/roadrunner-laravel.svg?style=flat-square&maxAge=180
-[link_releases]:https://github.com/spiral/roadrunner-laravel/releases
-[link_packagist]:https://packagist.org/packages/spiral/roadrunner-laravel
-[link_build_status]:https://github.com/spiral/roadrunner-laravel/actions
-[link_coverage]:https://codecov.io/gh/spiral/roadrunner-laravel/
-[link_changes_log]:https://github.com/spiral/roadrunner-laravel/blob/master/CHANGELOG.md
-[link_issues]:https://github.com/spiral/roadrunner-laravel/issues
-[link_create_issue]:https://github.com/spiral/roadrunner-laravel/issues/new/choose
-[link_commits]:https://github.com/spiral/roadrunner-laravel/commits
-[link_pulls]:https://github.com/spiral/roadrunner-laravel/pulls
-[link_license]:https://github.com/spiral/roadrunner-laravel/blob/master/LICENSE
-[getcomposer]:https://getcomposer.org/download/
-[roadrunner]:https://github.com/spiral/roadrunner
-[laravel]:https://laravel.com
-[laravel_events]:https://laravel.com/docs/events
-[#10]:https://github.com/spiral/roadrunner-laravel/issues/10
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
