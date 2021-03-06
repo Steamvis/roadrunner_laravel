@@ -18,3 +18,7 @@ reload:
       dirs: ["/app/public"]
       # include sub directories
       recursive: true
+      
+# стили/изображения
+static:
+  dir: 'public'
